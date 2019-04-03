@@ -1,0 +1,30 @@
+#include "script_macros.hpp"
+/*
+    File: initServer.sqf
+    Author:
+
+    Description:
+    Starts the initialization of the server.
+*/
+if (!(_this select 0)) exitWith {}; //Not server
+[] call compile preprocessFileLineNumbers "\life_server\init.sqf";
+waitUntil {life_server_isReady};
+if (LIFE_SETTINGS(getNumber,"pump_service") isEqualTo 1) then {
+    [] execVM "core\fn_setupStationService.sqf";
+};
+
+_temp = ceil random 3;
+// spawnt den Drogendealer an einer der 4 Positoinen und löscht die anderen 3
+autoschieberlocation = _temp;
+publicVariable "autoschieberlocation";
+if (0 == _temp) then { hideObjectGlobal dealer2; hideObjectGlobal dealer3; hideObjectGlobal dealer4; };
+if (1 == _temp) then { hideObjectGlobal dealer1; hideObjectGlobal dealer3; hideObjectGlobal dealer4; };
+if (2 == _temp) then { hideObjectGlobal dealer1; hideObjectGlobal dealer2; hideObjectGlobal dealer4; };
+if (3 == _temp) then { hideObjectGlobal dealer1; hideObjectGlobal dealer2; hideObjectGlobal dealer3; };
+// spawnt den DWaffendealer an einer der 4 Positoinen und löscht die anderen 3
+waffenhaendlerlocaton = _temp;
+publicVariable "waffenhaendlerlocaton";
+if (0 == _temp) then { hideObjectGlobal wheandler2; hideObjectGlobal wheandler3; hideObjectGlobal wheandler4; };
+if (1 == _temp) then { hideObjectGlobal wheandler1; hideObjectGlobal wheandler3; hideObjectGlobal wheandler4; };
+if (2 == _temp) then { hideObjectGlobal wheandler1; hideObjectGlobal wheandler2; hideObjectGlobal wheandler4; };
+if (3 == _temp) then { hideObjectGlobal wheandler1; hideObjectGlobal wheandler2; hideObjectGlobal wheandler3; };
