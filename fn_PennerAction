@@ -1,7 +1,7 @@
 /*
 	Author: Digi | Julian
 	Project: projectx-rpg.de
-	Discription: 
+	Discription: wählt durch einen Reandomgenerator eine position für etwas (z.b. Drogendealer) und gibt gegen abgabe von objekten die position bekannt
 */
 params ["_target", "_caller", "_actionId", "_arguments", "_marker1", "_npos"];
 
@@ -29,9 +29,8 @@ switch (_arguments select 0) do {
 			case 1: {hintsilent "ort 2.";};
 			case 2: {hintsilent "ort 3.";};
 			case 3: {hintsilent "ort 4.";};
+			default {};
 		};
 	};
 	default {};
 };
-
-//by Tex
