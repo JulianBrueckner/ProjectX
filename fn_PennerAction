@@ -1,0 +1,60 @@
+params ["_target", "_caller", "_actionId", "_arguments", "_marker1", "_npos"];
+
+
+_openonmapdealer = {
+	_x = ceil random 10;
+	_y = ceil random 10;
+	_xr = ceil random 10;
+	_yr = ceil random 10;
+	
+	if (_xr >= 5) then {_posx = _x} else {_posx = _x*-1};
+	if (_yr >= 5) then {_posy = _y} else {_posy = _y*-1};
+	
+	switch (autoschieberlocation) do {
+		case 0: {_pos = getpos dealer1; _npos = [(_pos select 0) + _posx, (_pos select 1) + _posx, (_pos select 2)];};
+		case 1: {_pos = getpos dealer2; _npos = [(_pos select 0) + _posx, (_pos select 1) + _posx, (_pos select 2)];};
+		case 2: {_pos = getpos dealer3; _npos = [(_pos select 0) + _posx, (_pos select 1) + _posx, (_pos select 2)];};
+		case 3: {_pos = getpos dealer4; _npos = [(_pos select 0) + _posx, (_pos select 1) + _posx, (_pos select 2)];};
+	};
+	switch (waffenhaendlerlocaton) do {
+		case 0: {_pos = getpos whaendler1; _npos = [(_pos select 0) + _posx, (_pos select 1) + _posx, (_pos select 2)];};
+		case 1: {_pos = getpos whaendler2; _npos = [(_pos select 0) + _posx, (_pos select 1) + _posx, (_pos select 2)];};
+		case 2: {_pos = getpos whaendler3; _npos = [(_pos select 0) + _posx, (_pos select 1) + _posx, (_pos select 2)];};
+		case 3: {_pos = getpos whaendler4; _npos = [(_pos select 0) + _posx, (_pos select 1) + _posx, (_pos select 2)];};
+	};
+	_marker1 = createMarkerLocal ["Marker1", _npos];
+	"Marker1" setMarkerShape "ELLIPSE";
+	"Marker1" setMarkerSize [100, 100];
+	
+};
+
+
+if ((missionNamespace getVariable ["life_inv_Pfandflasche",0]) < 3) exitwith {hintsilent "Du hast nicht genug Pfandflaschen!"};
+
+if ((ceil random 5) == 1) exitwith {hintsilent "Ich kann mich nicht erinnern. Ich denke ein paar mehr Flaschen würden meinem Gedächtnis auf die Sprünge helfen."};
+
+[false,"Pfandflasche",3] call life_fnc_handleInv;
+
+if ((random 10) < 1) exitwith {hintsilent "Ich habe keine Ahnung.";};
+switch (_arguments select 0) do {
+	case 0 : {
+		switch (autoschieberlocation) do {
+			case 0: {hintsilent "Der Drogendealer befindet sich im Moment in einem Steinbruch bei Willcania."; [] spawn _openonmapdealer;};
+			case 1: {hintsilent "Der Drogendealer befindet sich im Moment in einem weißen Schweinchen in Pine Gap."; [] spawn _openonmapdealer;};
+			case 2: {hintsilent "Der Drogendealer befindet sich im Moment in einer Verlassenen Lagerhalle beim ÖL Feld."; [] spawn _openonmapdealer;};
+			case 3: {hintsilent "Der Drogendealer befindet sich im Moment im Containerhafen bei Darwin."; [] spawn _openonmapdealer;};
+			default {};
+		};
+	};
+	case 1: {
+		switch (waffenhaendlerlocaton) do {
+			case 0: {hintsilent "ort 1.";};
+			case 1: {hintsilent "ort 2.";};
+			case 2: {hintsilent "ort 3.";};
+			case 3: {hintsilent "ort 4.";};
+		};
+	};
+	default {};
+};
+
+//by Tex
